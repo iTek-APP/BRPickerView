@@ -308,12 +308,16 @@
         }
     } else if (self.pickerMode == BRStringPickerComponentMulti || self.pickerMode == BRStringPickerComponentLinkage) {
         label.frame = CGRectMake(0, 0, self.pickerView.frame.size.width / pickerView.numberOfComponents, self.pickerStyle.rowHeight);
-        id item = self.mDataSourceArr[component][row];
-        if ([item isKindOfClass:[BRResultModel class]]) {
-            BRResultModel *model = (BRResultModel *)item;
-            label.text = model.value;
+        if (self.mDataSourceArr.count > component && ((NSArray *) self.mDataSourceArr[component]).count > row) {
+            id item = self.mDataSourceArr[component][row];
+            if ([item isKindOfClass:[BRResultModel class]]) {
+                BRResultModel *model = (BRResultModel *)item;
+                label.text = model.value;
+            } else {
+                label.text = item;
+            }
         } else {
-            label.text = item;
+            label.text = @"";
         }
     }
     
